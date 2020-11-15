@@ -1,7 +1,12 @@
 module.exports = (mongoose) => {
     const questionSchema = new mongoose.Schema({
-      name: String
-    });
+      title: {type: String, required: true },
+      question: {type: String, required: true},
+      username: {type: String, require: true, trim: true, minlength: 3},
+      answers: [{answer: String, username: String, votes: Number}],
+  }, {
+      timestamps: true,
+  });
   
     const questionModel = mongoose.model('Question', questionSchema);
   
@@ -23,9 +28,9 @@ module.exports = (mongoose) => {
       }
     }
   
-    async function createQuestion(text) {
-      let question = new questionModel({name: text});
-      return question.save();
+    async function createQuestion(title, question, username) {
+      let newQuestion = new questionModel({title: title, question: question, username: username, answers:[]});
+      return newQuestion.save();
     }
   
     async function bootstrap(count = 10) {
@@ -35,7 +40,7 @@ module.exports = (mongoose) => {
       if (l === 0) {
         let promises = [];
         for (let i = 0; i < count; i++) {
-          let newQuestion = new questionModel({name: `Question number ${i}`});
+          let newQuestion = new questionModel({title: `Question number ${i}`, question: 'bla bla', username: `Username${i}`, answers:[]});
           promises.push(newQuestion.save());
         }
         return Promise.all(promises);

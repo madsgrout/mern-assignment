@@ -15,7 +15,9 @@ const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost/questions';
 
 async function createServer() {
   // Connect db
-  await mongoose.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+  await mongoose.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => console.log('MongoDB connected.'))
+    .catch(err => console.log(err));
 
   // Create data
   const questionDB = require('./questionDB')(mongoose);
