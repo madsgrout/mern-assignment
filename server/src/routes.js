@@ -1,14 +1,21 @@
-module.exports = () => {
+module.exports = (questionDB) => {
   const express = require("express");
   const router = express.Router();
 
   /**** Routes ****/
-  router.get('/hello', async (req, res) => {
-    res.json({msg: "Hello, world!"});
+  router.get('/', async (req, res) => {
+    const questions = await questionDB.getQuestions(); 
+    res.json(questions);
   });
 
-  router.get('/hello/:name', async (req, res) => {
-    res.json({msg: `Hello, ${req.params.name}`});
+  router.get('/:id', async (req, res) => {
+    const question = await questionDB.getQuestion(req.params.id);
+    res.json(question);
+  });
+
+  router.post('/', async (req, res) => {
+    // TODO: Implement!
+    res.json({msg: "Not implemented :("});
   });
 
   return router;
