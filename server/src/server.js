@@ -20,11 +20,9 @@ async function createServer() {
     .catch(err => console.log(err));
 
   // Create data
-  const questionDB = require('./questionDB')(mongoose);
-  await questionDB.bootstrap();
   
   // Require routes
-  const routes = require("./routes")(questionDB); // Inject mongoose into routes module
+  const routes = require("./routes"); // Inject mongoose into routes module
 
   // Add middleware
   app.use(bodyParser.json()); 

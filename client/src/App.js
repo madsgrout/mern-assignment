@@ -1,43 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import AppNavbar from './components/AppNavbar.js';
-const API_URL = process.env.REACT_APP_API;
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css"
 
-const Question = props => (
-  <div>
-      <div className="card">
-          <div className="card-header">Question by {props.question.username}</div>
-              <div className="card-body">
-                  <h5 className="card-title">{props.question.title}</h5>
-                  <p className="card-text">{props.question.question}</p>
-          </div>
-      </div>
-      <br/>
-  </div> 
-)
+import Navbar from "./components/AppNavbar";
+import QuestionList from "./components/Question-list";
+import Question from "./components/Question";
 
 function App() {
-  const [data, setData] = useState([]);
-  
-  useEffect(() => {
-    async function getData() {
-      const url = `${API_URL}/questions`;
-      const response = await fetch(url);
-      const data = await response.json();
-      setData(data);
-    }
-    getData();
-  }, []); 
-
-  return (
-    <>
-      <AppNavbar/>
-      <h1>Questions</h1>
+  return(
+    <Router>
+      <div className="container">
+      <Navbar/>
       <br/>
-      {data.map(currentQuestion => {
-        return <Question question = {currentQuestion} key={currentQuestion._id}/>;
-      })}
-    </>
+      <Switch>
+      <Route path="/:id" component={Question} />
+      <Route path="/" exact component={QuestionList} />
+      
+      </Switch>
+      </div>
+    </Router>
   );
 }
 
