@@ -33,6 +33,9 @@ class AppNavbar extends Component{
                             <NavItem>
                                 <NavLink href="https://github.com/madsgrout">Github</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink href="/create">Create Question</NavLink>
+                            </NavItem>
                         </Nav>
                     </Collapse>
                 </Container>

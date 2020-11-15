@@ -19,7 +19,7 @@ const QuestionCard = props => (
 
 export default class QuestionList extends Component {
     constructor(props){
-        super(props);
+        super();
 
         this.state = {questions: []};
     }

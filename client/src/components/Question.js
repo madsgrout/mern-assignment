@@ -15,7 +15,7 @@ const Answer = props => (
 
 export default class Question extends Component {
     constructor(props){
-        super(props);
+        super();
 
         this.onChangeAnswer = this.onChangeAnswer.bind(this);
         this.onChangeUsername = this.onChangeUsername.bind(this);
